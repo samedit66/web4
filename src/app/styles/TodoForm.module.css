@@ -1,0 +1,69 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.inputContainer input[type="text"] {
+    width: 95%;
+    padding: 15px;
+    margin: 15px 0;
+    border: 1px solid #b3cde0;
+    border-radius: 8px;
+    background-color: #e6f2f8;
+    color: #333;
+    font-size: 1.1em;
+    transition: border 0.3s;
+}
+
+.inputContainer input[type="text"]:focus {
+    border-color: #0099cc;
+}
+
+.inputContainer button {
+    background-color: #b3cde0;
+    color: black;
+    border: none;
+    padding: 12px 25px;
+    margin: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s, transform 0.2s;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.inputContainer button:hover {
+    background-color: #99b3c1;
+}
+
+.cancelButton {
+    background-color: #f44336;  /* Красный для отмены */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+.cancelButton:hover {
+  background-color: #d32f2f; /* Темнее красный при наведении */
+}
+
+button:disabled {
+  background-color: #ccc; /* светло-серый цвет для заблокированной кнопки */
+  color: #666; /* тусклый цвет текста */
+  cursor: not-allowed; /* курсор "не разрешен" */
+}
+
+button:disabled:hover {
+  background-color: #ccc; /* цвет не меняется при наведении на заблокированную кнопку */
+}
+
+.disabledButton {
+  cursor: not-allowed;
+  background-color: #ddd;
+  color: #888;
+}
