@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Task, Subtask } from "./types";
 import TodoItem from "./components/TodoItem";
 import TodoForm from "./components/TodoForm";
@@ -15,6 +16,9 @@ const Home: React.FC = () => {
   const [isEditingSubtask, setIsEditingSubtask] = useState(false);
   const [currentSubtask, setCurrentSubtask] = useState<Subtask | null>(null);
   const [currentSubtaskIndex, setCurrentSubtaskIndex] = useState<number | null>(null);
+  const [currentTodoIndex, setCurrentTodoIndex] = useState<number | null>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     const savedTodos = JSON.parse(localStorage.getItem("todos") || "[]") as Task[];
@@ -45,12 +49,7 @@ const Home: React.FC = () => {
   };
 
   const editTask = (index: number) => {
-    const taskToEdit = todos[index];
-    setTodoTitle(taskToEdit.title);
-    setTodoDesc(taskToEdit.text);
-    setTodoDifficulty(taskToEdit.difficulty);
-    setTodoTags(taskToEdit.tags);
-    setEditingIndex(index);
+    router.push(`/tasks/${index}`);
   };
 
   const saveTodo = () => {
@@ -76,49 +75,77 @@ const Home: React.FC = () => {
     setEditingIndex(null);
   };
 
-  const addSubtask = (index: number, subtask: Subtask) => {
+  const addSubtaskHandler = (todoIndex: number) => {
+    setIsEditingSubtask(true); // Переключаем в режим добавления подзадачи
+    setCurrentTodoIndex(todoIndex); // Запоминаем индекс задачи, к которой добавляется подзадача
+    clearFields(); // Очищаем форму
+  };
+
+  const saveSubtask = () => {
+    // Проверяем, что поля заполнены и выбрана задача
+    if (
+      currentTodoIndex === null ||
+      !todoTitle.trim() ||
+      !todoDesc.trim() ||
+      !todoDifficulty.trim() ||
+      !todoTags.trim()
+    ) {
+      alert("Please fill out all fields before saving a subtask.");
+      return;
+    }
+  
+    // Создаем новую подзадачу
+    const newSubtask: Subtask = {
+      subtaskTitle: todoTitle.trim(),
+      subtaskDescription: todoDesc.trim(),
+      subtaskDifficulty: todoDifficulty.trim(),
+      subtaskTags: todoTags.trim(),
+    };
+  
+    // Добавляем подзадачу в выбранную задачу
     const updatedTodos = [...todos];
-    updatedTodos[index].subtasks.push(subtask);
+    //updatedTodos[currentTodoIndex].subtasks.push(newSubtask);
+    if (currentSubtaskIndex !== null) {
+      updatedTodos[currentTodoIndex].subtasks[currentSubtaskIndex] = newSubtask;
+    }
+    else {
+      updatedTodos[currentTodoIndex].subtasks.push(newSubtask);
+    }
+
+    // Сохраняем изменения и очищаем форму
     saveToLocalStorage(updatedTodos);
+    clearFields();
+    setIsEditingSubtask(false); // Возвращаем форму в режим добавления задач
+    setCurrentTodoIndex(null);
+  };
+
+  const cancelSubtaskHandler = () => {
+    clearFields();
+    setIsEditingSubtask(false);
+    setCurrentTodoIndex(null);
+    setCurrentSubtaskIndex(null);
   };
 
   // Редактирование подзадачи, но подзадача не добавляется сразу в список.
   const editSubtask = (todoIndex: number, subtaskIndex: number) => {
+    router.push(`/subtasks/${todoIndex}-${subtaskIndex}`);
+
+    /*
     const subtask = todos[todoIndex].subtasks[subtaskIndex];
     
+    clearFields();
+
     // Заполняем форму содержимым подзадачи
     setTodoTitle(subtask.subtaskTitle);
     setTodoDesc(subtask.subtaskDescription);
     setTodoDifficulty(subtask.subtaskDifficulty);
     setTodoTags(subtask.subtaskTags);
 
+    setCurrentTodoIndex(todoIndex); // Сохраняем индекс текущей задачи
     setCurrentSubtask(subtask);  // Сохраняем текущую подзадачу для редактирования
     setCurrentSubtaskIndex(subtaskIndex);  // Сохраняем индекс подзадачи
     setIsEditingSubtask(true);  // Устанавливаем флаг редактирования подзадачи
-  };
-
-  const saveSubtask = (todoIndex: number) => {
-    if (currentSubtask && currentSubtaskIndex !== null) {
-      const updatedTodos = [...todos];
-  
-      // Обновляем данные подзадачи с новыми значениями из формы
-      updatedTodos[todoIndex].subtasks[currentSubtaskIndex] = {
-        ...updatedTodos[todoIndex].subtasks[currentSubtaskIndex],
-        subtaskTitle: todoTitle,  // Обновляем название подзадачи
-        subtaskDescription: todoDesc,  // Обновляем описание подзадачи
-        subtaskDifficulty: todoDifficulty,  // Обновляем сложность подзадачи
-        subtaskTags: todoTags,  // Обновляем теги подзадачи
-      };
-  
-      saveToLocalStorage(updatedTodos);  // Сохраняем обновленные данные в локальное хранилище
-      clearSubtaskFields();  // Очищаем форму и сбрасываем состояния
-    }
-  };
-
-  // Отмена процесса редактирования подзадачи
-  const cancelEditSubtask = () => {
-    clearSubtaskFields();  // Сбрасываем поля формы
-    setIsEditingSubtask(false);  // Убираем флаг редактирования подзадачи
+    */
   };
 
   const deleteSubtask = (todoIndex: number, subtaskIndex: number) => {
@@ -133,17 +160,7 @@ const Home: React.FC = () => {
     setTodoDifficulty("");
     setTodoTags("");
   };
-
-  const clearSubtaskFields = () => {
-    setCurrentSubtask(null);  // Сбрасываем текущую подзадачу
-    setCurrentSubtaskIndex(null);  // Сбрасываем индекс подзадачи
-    setIsEditingSubtask(false);  // Сбрасываем флаг редактирования
-    setTodoTitle("");  // Очищаем поле названия
-    setTodoDesc("");  // Очищаем поле описания
-    setTodoDifficulty("");  // Очищаем поле сложности
-    setTodoTags("");  // Очищаем поле тегов
-  };
-
+  
   const deleteAllTasks = () => {
     if (window.confirm("Are you sure you want to delete all tasks?")) {
       localStorage.removeItem("todos");
@@ -163,11 +180,12 @@ const Home: React.FC = () => {
         setTodoDesc={setTodoDesc}
         setTodoDifficulty={setTodoDifficulty}
         setTodoTags={setTodoTags}
-        onSubmit={editingIndex !== null ? saveTodo : addTodo}
+        onSubmit={isEditingSubtask ? saveSubtask : editingIndex !== null ? saveTodo : addTodo}
         isEditing={editingIndex !== null}
         isEditingSubtask={isEditingSubtask}
         onDeleteAll={deleteAllTasks}
         isDeleteAllDisabled={todos.length === 0}
+        onCancel={isEditingSubtask ? cancelSubtaskHandler : undefined}
       />
       <div className={styles.todoList}>
         {todos.map((todo, index) => (
@@ -177,7 +195,7 @@ const Home: React.FC = () => {
             index={index}
             onEdit={() => editTask(index)}
             onDelete={(index) => deleteTodo(index)}
-            onAddSubtask={addSubtask}
+            onAddSubtask={() => addSubtaskHandler(index)}
             onEditSubtask={(subtaskIndex) => editSubtask(index, subtaskIndex)}
             onDeleteSubtask={(subtaskIndex) => deleteSubtask(index, subtaskIndex)}
           />

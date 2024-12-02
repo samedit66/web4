@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import styles from "../styles/TodoForm.module.css";
 
@@ -13,6 +15,7 @@ interface TodoFormProps {
   onSubmit: () => void;
   isEditing: boolean;
   isEditingSubtask: boolean;
+  onCancel?: () => void;
   onDeleteAll: () => void;
   isDeleteAllDisabled: boolean;
 }
@@ -29,6 +32,7 @@ const TodoForm: React.FC<TodoFormProps> = ({
   onSubmit,
   isEditing,
   isEditingSubtask,
+  onCancel,
   onDeleteAll,
   isDeleteAllDisabled,
 }) => {
@@ -58,16 +62,28 @@ const TodoForm: React.FC<TodoFormProps> = ({
         value={todoTags}
         onChange={(e) => setTodoTags(e.target.value)}
       />
-      <button onClick={onSubmit}>
-        {isEditing ? (isEditingSubtask ? "Save Subtask" : "Save Task") : "Add Task"}
-      </button>
-      <button
-        onClick={onDeleteAll}
-        disabled={isDeleteAllDisabled}
-        className={isDeleteAllDisabled ? styles.disabledButton : ""}
-        >
-        Delete all
-      </button>
+      <div className={styles.buttonGroup}>
+        <button onClick={onSubmit}>
+          {isEditingSubtask
+            ? "Save Subtask"
+            : isEditing
+            ? "Save Task"
+            : "Add Task"}
+        </button>
+        {(isEditingSubtask || isEditing) ? (
+          <button onClick={onCancel} className={styles.cancelButton}>
+            Cancel
+          </button>
+        ) : (
+          <button
+            onClick={onDeleteAll}
+            disabled={isDeleteAllDisabled}
+            className={isDeleteAllDisabled ? styles.disabledButton : ""}
+          >
+            Delete All
+          </button>
+        )}
+      </div>
     </div>
   );
 };

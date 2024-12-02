@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Task, Subtask } from "../types";
 import SubtaskItem from "./SubtaskItem";
@@ -28,10 +30,23 @@ const TodoItem: React.FC<TodoItemProps> = ({
       <p>{todo.text}</p>
       <p>Difficulty: {todo.difficulty}</p>
       <p>Tags: {todo.tags}</p>
-      <button onClick={() => onEdit(index)}>Edit</button>
-      <button onClick={() => onDelete(index)}>Delete</button>
 
       <button
+        className={styles.editTaskBtn}
+        onClick={() => onEdit(index)}
+      >
+        Edit
+      </button>
+
+      <button
+        className={styles.deleteTaskBtn}
+        onClick={() => onDelete(index)}
+      >
+        Delete
+      </button>
+
+      <button
+        className={styles.addSubtaskBtn}
         onClick={() =>
           onAddSubtask(index, {
             subtaskTitle: "New Subtask",

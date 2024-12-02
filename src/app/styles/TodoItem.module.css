@@ -26,6 +26,8 @@
     margin-top: 10px;
 }
 
+.editTaskBtn,
+.deleteTaskBtn,
 .addSubtaskBtn {
     background-color: #b3cde0;
     color: black;

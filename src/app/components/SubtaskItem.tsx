@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Subtask } from "../types";
 import styles from "../styles/SubtaskItem.module.css";
@@ -12,8 +14,8 @@ const SubtaskItem: React.FC<SubtaskItemProps> = ({ subtask, onEdit, onDelete }) 
   return (
     <div className={styles.subtaskItem}>
       <p>Subtask: {subtask.subtaskTitle}</p>
-      <button onClick={onEdit}>Edit</button>
-      <button onClick={onDelete}>Delete</button>
+      <button className={styles.editBtn} onClick={onEdit}>Edit</button>
+      <button className={styles.deleteBtn} onClick={onDelete}>Delete</button>
     </div>
   );
 };
