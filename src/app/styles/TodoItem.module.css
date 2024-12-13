@@ -1,9 +1,10 @@
 .todoItem {
-    border: 1px solid #b3cde0;
+    border: 1px solid var(--border-color);
     margin: 15px 0;
     padding: 15px;
     border-radius: 8px;
-    background-color: #ffffff;
+    background-color: var(--background-color);
+    color: var(--text-color);
     transition: transform 0.2s;
 }
 
@@ -24,13 +25,14 @@
     padding: 10px 30px;
     text-align: left;
     margin-top: 10px;
+    color: var(--text-color);
 }
 
 .editTaskBtn,
 .deleteTaskBtn,
 .addSubtaskBtn {
-    background-color: #b3cde0;
-    color: black;
+    background-color: var(--button-background);
+    color: var(--text-color);
     border: none;
     padding: 10px 20px;
     margin: 10px;
@@ -41,6 +43,8 @@
     transition: background-color 0.3s, transform 0.2s;
 }
 
+.editTaskBtn:hover,
+.deleteTaskBtn:hover,
 .addSubtaskBtn:hover {
-    background-color: #99b3c1;
+    background-color: var(--hover-background-color);
 }

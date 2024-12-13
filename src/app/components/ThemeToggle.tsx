@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState, useEffect } from "react";
 
@@ -6,6 +5,7 @@ const ThemeToggle: React.FC = () => {
   const [theme, setTheme] = useState<string>("light");
 
   useEffect(() => {
+    // Загружаем сохраненную тему из localStorage
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
       setTheme(savedTheme);
@@ -16,8 +16,8 @@ const ThemeToggle: React.FC = () => {
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme); // Сохраняем тему
+    document.documentElement.setAttribute("data-theme", newTheme); // Обновляем атрибут
   };
 
   return (

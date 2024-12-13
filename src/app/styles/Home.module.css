@@ -4,7 +4,8 @@
     max-width: 600px;
     text-align: center;
     padding: 30px;
-    background-color: #ffffff;
+    background-color: var(--background-color);
+    color: var(--text-color);
     border-radius: 15px;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
     margin-bottom: 50px;
@@ -19,4 +20,29 @@
     margin-bottom: 20px;
     display: flex;
     align-items: flex-end;
+}
+
+.searchButton {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: var(--button-background);
+    color: var(--text-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+.searchButton:hover {
+    background-color: var(--hover-background-color);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.searchButton:active {
+    background-color: var(--button-background);
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
 }

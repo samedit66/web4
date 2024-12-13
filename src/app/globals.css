@@ -2,20 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Светлая тема (по умолчанию) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background-color: #f9f9f9;
+  --text-color: #333;
+  --border-color: #ccc;
+  --input-bg: #fff;
+  --placeholder-color: #888;
+  --button-bg: #4caf50;
+  --button-text: #fff;
+  --button-bg-alt: #9e9e9e;
+  --button-text-alt: #fff;
+  --button-hover-bg: #3e8e41;
+  --button-hover-text: #fff;
+  --task-bg: #fff;
+  --task-text: #333;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Темная тема */
+[data-theme="dark"] {
+  --background-color: #121212;
+  --text-color: #f9f9f9;
+  --border-color: #444;
+  --input-bg: #1e1e1e;
+  --placeholder-color: #bbb;
+  --button-bg: #3e8e41;
+  --button-text: #fff;
+  --button-bg-alt: #616161;
+  --button-text-alt: #fff;
+  --button-hover-bg: #2e7d32;
+  --button-hover-text: #fff;
+  --task-bg: #1e1e1e;
+  --task-text: #f9f9f9;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  background-color: var(--background-color);
+  color: var(--text-color);
   font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }

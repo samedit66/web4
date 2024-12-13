@@ -1,36 +1,31 @@
 .subtaskItem {
-    border: 1px solid #b3cde0;
-    padding: 10px 15px;
-    border-radius: 8px;
-    margin: 10px 0;
-    background-color: #ffffff;
-    transition: transform 0.2s;
+  border: 1px solid var(--border-color);
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin: 10px 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: transform 0.2s;
 }
 
 .subtaskItem:hover {
-    transform: translateY(-2px);
-}
-
-.subtaskTitle {
-    font-weight: bold;
-    font-size: 1.1em;
+  transform: translateY(-2px);
 }
 
 .editBtn,
 .deleteBtn {
-    background-color: #b3cde0;
-    color: black;
-    border: none;
-    padding: 8px 16px;
-    margin: 5px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9em;
-    font-family: 'Montserrat', sans-serif;
-    transition: background-color 0.3s, transform 0.2s;
+  background-color: var(--button-background);
+  color: var(--text-color);
+  border: none;
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .editBtn:hover,
 .deleteBtn:hover {
-    background-color: #99b3c1;
+  background-color: var(--hover-background-color);
 }

@@ -1,0 +1,70 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: var(--background-color, #f9f9f9);
+    /* Светлая или темная тема */
+    color: var(--text-color, #333);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 5px;
+    color: #000;
+    /* Черный текст */
+    background-color: var(--input-bg, #fff);
+}
+
+.input::placeholder {
+    color: var(--placeholder-color, #888);
+}
+
+.filterButton,
+.backButton {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.filterButton {
+    background-color: var(--button-bg, #4caf50);
+    /* Зеленоватый оттенок */
+    color: var(--button-text, #fff);
+}
+
+.backButton {
+    background-color: var(--button-bg-alt, #9e9e9e);
+    /* Серый оттенок */
+    color: var(--button-text-alt, #fff);
+}
+
+.filterButton:hover,
+.backButton:hover {
+    background-color: var(--button-hover-bg, #3e8e41);
+    color: var(--button-hover-text, #fff);
+}
+
+.results {
+    margin-top: 20px;
+}
+
+.task {
+    border: 1px solid var(--border-color, #ccc);
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    text-align: left;
+    background-color: var(--task-bg, #fff);
+    color: var(--task-text, #333);
+}
+

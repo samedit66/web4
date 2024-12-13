@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Task, Subtask } from "./types";
 import TodoItem from "./components/TodoItem";
 import TodoForm from "./components/TodoForm";
+import ThemeToggle from "./components/ThemeToggle";
 import styles from "./styles/Home.module.css";
 
 const Home: React.FC = () => {
@@ -30,10 +31,14 @@ const Home: React.FC = () => {
     setTodos(updatedTodos);
   };
 
+  const navigateToFilter = () => {
+    router.push("/filterwindow");
+  };
+
   const addTodo = () => {
     if (!todoTitle || !todoDesc || !todoDifficulty || !todoTags) {
       alert("Please fill out all fields before adding a task.");
-      return; // Прерываем выполнение функции, если хотя бы одно поле пустое
+      return;
     }
 
     const newTodo: Task = {
@@ -126,26 +131,8 @@ const Home: React.FC = () => {
     setCurrentSubtaskIndex(null);
   };
 
-  // Редактирование подзадачи, но подзадача не добавляется сразу в список.
   const editSubtask = (todoIndex: number, subtaskIndex: number) => {
     router.push(`/subtasks/${todoIndex}-${subtaskIndex}`);
-
-    /*
-    const subtask = todos[todoIndex].subtasks[subtaskIndex];
-    
-    clearFields();
-
-    // Заполняем форму содержимым подзадачи
-    setTodoTitle(subtask.subtaskTitle);
-    setTodoDesc(subtask.subtaskDescription);
-    setTodoDifficulty(subtask.subtaskDifficulty);
-    setTodoTags(subtask.subtaskTags);
-
-    setCurrentTodoIndex(todoIndex); // Сохраняем индекс текущей задачи
-    setCurrentSubtask(subtask);  // Сохраняем текущую подзадачу для редактирования
-    setCurrentSubtaskIndex(subtaskIndex);  // Сохраняем индекс подзадачи
-    setIsEditingSubtask(true);  // Устанавливаем флаг редактирования подзадачи
-    */
   };
 
   const deleteSubtask = (todoIndex: number, subtaskIndex: number) => {
@@ -171,6 +158,10 @@ const Home: React.FC = () => {
   return (
     <div className={styles.container}>
       <h1>Todo List</h1>
+      <ThemeToggle />
+      <button className={styles.searchButton} onClick={navigateToFilter}>
+        Search
+      </button>
       <TodoForm
         todoTitle={todoTitle}
         todoDesc={todoDesc}
